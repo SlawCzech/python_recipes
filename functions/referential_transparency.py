@@ -13,3 +13,6 @@ x = magic()
 # jak podstawomy x = 42, to się nie wyprintuje 'logging'
 # czyli efekt nie jest taki sam
 
+
+# jeśli na funkcję można podstawić sam wynik i działa, to funkcja robi niepotrzebne rzeczy
+
