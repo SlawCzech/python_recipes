@@ -11,7 +11,7 @@
 # Problemy:
 # Może dojść do memory leak
 
-
+# Są zapisywane w __closure__, czyli w obiekcie funkcji inner
 # Identyfikatory przetrzymywane są w obiekcie funkcji inner
 
 def sentence(name):
@@ -37,12 +37,18 @@ def uuid():
     counter = 0
 
     def inner():
-        nonlocal counter
+        nonlocal counter  # musi być ze względu na LHS i RHS, jeśli nie znajdzie countera w localscopie, to go stworzy
         result = counter
         counter += 1
         return result
 
     return inner
+
+
+# gen_uuid = uuid()
+# print(gen_uuid())
+# print(gen_uuid())
+# print(gen_uuid())
 
 
 # To NIE jest closure, ale nie używa nonlocal
@@ -124,5 +130,3 @@ print(q['show'].__closure__[0].cell_contents)
 
 # IIFE immediately invoked function expression
 print((lambda: 42)())
-
-
