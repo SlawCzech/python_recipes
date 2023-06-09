@@ -94,13 +94,13 @@ for person in data:
 
 party = {key: len([person["city"] for person in data if person["city"] in value]) for key, value in zones.items()}
 
-print(party)
+# print(party)
 
 # map, filter, reduce
 
 party_2 = map(lambda x: sum(map(lambda y: y['city'] in x, data)), zones.values())
 
-print(list(party_2))
+# print(list(party_2))
 
 # map przyjmuje nieskończenie wiele parametrów
 
@@ -113,4 +113,62 @@ z = [1, 2, 3]
 
 sum_lists = list(map(lambda a, b, c: a + b + c, x, y, z))
 
-print(sum_lists)
+# print(sum_lists)
+
+
+# lista unikalnych hobbies
+
+# classic way
+
+unique_hobbies = set()
+
+for person in data:
+    for hobby in person["hobbies"]:
+        unique_hobbies.add(hobby)
+
+# print(list(unique_hobbies))
+
+
+# comprehension way
+
+comprehension_unique_hobbies = list({hobby for person in data for hobby in person['hobbies']})
+
+# print(comprehension_unique_hobbies)
+
+
+# reduce
+
+
+reduce_unique_hobbies = reduce(lambda acc, ce: acc | set(ce['hobbies']), data, set())
+
+
+# print(list(reduce_unique_hobbies))
+
+
+# 3 funkcje.
+
+def add(a, b=5):
+    return a + b
+
+
+def multiply(a, b=5):
+    return a * b
+
+
+def subtract(a, b=5):
+    return b - a
+
+
+x = 42
+
+result = x
+
+for elem in [add, multiply, subtract]:
+    result = elem(result)
+
+# print(result)
+# funkcjonalność poniżej to pipe
+
+more_elegant_code = reduce(lambda acc, ce: ce(acc), [add, multiply, subtract], x)
+print(more_elegant_code)
+
