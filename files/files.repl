@@ -1,0 +1,66 @@
+x = "ala ma kota i wszy"
+"{:.10s}...".format(x)
+y = "ala"
+"{:.10s}...".format(y)
+exit
+dict([(1, 2)])
+from django.core.management.utils import get_random_secret_key
+get_random_secret_key()
+round(6.5)
+round(7.5)
+from pathlib import Path
+Path
+Path.cwd(
+)
+Path --help
+Path(__file__)
+Path(__file__).parent
+Path.cwd()
+Path.home().joinpath("project")
+Path.home().joinpath("python", "scripts", "test.py")
+Path.home() / 'shopping' / 'list.md
+Path.home() / 'shopping' / 'list.md'
+exit
+exit()
+holiday = {'zima': 'winter', 'lato': 'summer'}.get(season, 'free day')
+holiday = {'zima': 'winter', 'lato': 'summer'}
+holiday.get('zima')
+holiday.get('seazon')
+holiday.get('seazon', 'freeday')
+id(256)
+id(257)
+id(258)
+id(259)
+import sys
+sys.getdefaultencoding()
+import os
+f = open(os.path.join('misc', 'wasteland.txt'), mode='wt', encoding='utf-8')
+f
+dir(f)
+help(f)
+f.write('Explicit is better than implicit.')
+f.write('Beautiful is better than ugly.')
+f.write('Now is better than never. \n')
+cat(f)
+f.close()
+f = open(os.path.join('misc', 'wasteland.txt'), mode='at', encoding='utf-8')
+f.write('Readibility counts. \n')
+f.close()
+f = open(os.path.join('misc', 'wasteland.txt'), mode='rt', encoding='utf-8')
+f.read()
+f.seek(0)
+f.read(33)
+f.read()
+help(f)
+f.seek(0)
+f.read(33)
+f.tell()
+f.seek(0)
+f.readline()
+f.seek(0)
+f.readlines()
+f.close()
+history
+import readline
+write_history_file(os.path.join('misc', 'files.repl'))
+readline.write_history_file(os.path.join('misc', 'files.repl'))
