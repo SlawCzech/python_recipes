@@ -74,7 +74,8 @@ gen_uuid = uuid_()
 
 
 # Funkcja debounce — jeżeli użytkownik nie wykona requestu w ciągu 300 milisekund, to funkcja się nie wykona,
-# jeśli powyżej 300 ms to
+# jeśli powyżej 300 ms to, request się w ogóle nie wykona
+# np uzupełnianie autokorekty, odpytujemy bazę danych jak użytkownik pisze
 
 from threading import Timer
 
