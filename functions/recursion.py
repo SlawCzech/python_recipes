@@ -91,15 +91,16 @@ def collatz(n):
 
 
 def tribonacci(n):
-    sequence = [0, 1, 1]
+    sequence = [0, 0, 1]
     if n <= 2:
         return sequence[n]
 
-    for i in range(3, n + 1):
+    for i in range(3, n):
         next_value = sequence[i - 1] + sequence[i - 2] + sequence[i - 3]
         sequence.append(next_value)
+        print(sequence)
 
-    return sequence[n]
+    return sequence[n - 1]
 
 
 print(tribonacci(6))
