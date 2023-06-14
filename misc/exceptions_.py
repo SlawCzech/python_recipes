@@ -224,4 +224,97 @@ class SortedSet:
 
 # Context manager
 
-# TODO wypełnić!! odgrzebać z wcześniejszych notatek
+import contextlib
+import sys
+
+"""
+Context manager stosujemy wtedy kiedy potrzebujemy zrobić przygotowanie do pewnej akcji i posprzątania po niej.
+Jeżeli operacja jest podatna na błędy, to również zaleca się context managera.
+"""
+
+
+class LoggingContextManager:
+    def __enter__(self):
+        print("LoggingContextManager.__enter__()")
+        return "You are in with some statement block."
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        if exc_type is None:
+            print("LoggingContextManager.__exit__()", "Normal exit detected.")
+        else:
+            print("LoggingContextManager.__exit__()", "Exception detected.",
+                  f"Type: {exc_type}, value: {exc_val}, traceback: {exc_tb}")
+
+
+# Context manager usage with no exceptions
+# with LoggingContextManager() as logging_ctx:
+#     print(logging_ctx)
+
+# with LoggingContextManager() as logging_ctx:
+#     print(logging_ctx)
+#     raise SyntaxError("Sth is no yes")
+
+# print("See if it works.")
+
+@contextlib.contextmanager
+def logging_context_manager():
+    print("Logging_context_manager: enter.")
+
+    try:
+        yield "You are in with statement block."
+        print("Logging_context_manager: normal exit.")
+    except Exception as e:
+        print("Logging_context_manager: exceptional exit.", sys.exc_info())
+        raise  # bez raise nie ma propagacji błędu wyżej
+
+
+# context manager usage without exception
+# with logging_context_manager() as logging_ctx:
+#     print(logging_ctx)
+
+# context manager usage with exception
+# with logging_context_manager() as logging_ctx:
+#     print(logging_ctx)
+#     raise SyntaxError("Sth is no yes.")
+
+# example for propagation errors
+class Magic:
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        return True  # return True blokują propagację wyjątku wyżej
+
+
+# with Magic():
+#     raise ZeroDivisionError("Error")
+#
+# print("Magic.")
+
+
+# nested context managers
+class Propagator:
+    def __init__(self, is_propagate, name="propagator"):
+        self._is_propagate = is_propagate
+        self._name = name
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        print(self._name, exc_type)
+        return self._is_propagate
+
+
+# with Propagator(True) as a:
+#     with Propagator(True) as b:
+#         raise StopIteration('No iteration.')
+#
+# print("Afterparty.")
+
+# The same logic as above - one manager nested in the another
+# depending on True/False configuration errors are propagated above to python or not
+with Propagator(False, "a") as a, Propagator(False, "b") as b:
+    raise ArithmeticError('No calculation for you.')
+
+print('After afterparty.')
