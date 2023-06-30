@@ -29,11 +29,25 @@ class Programmer:
         print("__init__")
 
 
-p = Programmer(12)
+# p = Programmer(12)
+#
+# print(vars(p))
+# print(dir(p))
+# print(p.my_magic(4))
+# p.learn('java')
+# p.learn('html')
+# print(p.languages)
 
-print(vars(p))
-print(dir(p))
-print(p.my_magic(4))
-p.learn('java')
-p.learn('html')
-print(p.languages)
+
+class GalacticMagic:
+    pass
+
+
+class Magic:
+    def __new__(cls, *args, **kwargs):
+        return GalacticMagic()  # konstruktor klasy Magic zwraca obiekt innej klasy
+
+
+# m = Magic()
+# print(type(m))
+
