@@ -51,3 +51,48 @@ class Magic:
 # m = Magic()
 # print(type(m))
 
+
+class VideoPlayer:
+    pass
+
+
+class MusicPlayer:
+    pass
+
+
+class Player:  # klasa Player może zwracać trzy różne obiekty
+    def __new__(cls, *args, **kwargs):
+        if kwargs.get("type") == "music":
+            self = MusicPlayer()
+        elif kwargs.get("type") == "video":
+            self = VideoPlayer()
+        else:
+            self =  super().__new__(cls)
+        setattr(self, "_duration", kwargs.get("duration"))
+        return self
+
+    def __init__(self, *, duration):
+        self._duration = duration
+
+
+# Player.__new__(Player)
+# Player.__init__(player)
+
+player_m = Player(type="music", duration=9)
+print(type(player_m), player_m._duration)
+
+player_v = Player(type="video", duration=10)
+print(type(player_v), player_v._duration)
+
+player = Player(duration=12)
+print(type(player), player._duration)
+
+#
+# class X:
+#     def make_magic(self):
+#         return 42
+#
+#
+# x = X()
+# print(x.make_magic())
+# print(X.make_magic(x))
