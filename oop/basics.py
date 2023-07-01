@@ -43,7 +43,6 @@ class Event(EventAbc):
         return self._attendees
 
 
-
 event = Event('2023-07-07', 56, ['Everybody'])
 
 print(event)
@@ -51,8 +50,6 @@ print(event.start_date)
 print(event.duration)
 print(event.attendees)
 
-# event.duration = 42  # triggeruje błąd
+# event.duration = 42  # triggeruje błąd, bo walidacja
 event.duration = 60
 print(event.duration)
-
-

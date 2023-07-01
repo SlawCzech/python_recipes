@@ -21,7 +21,7 @@ class Programmer:
         # cls.learn = learn  # przypisanie metody klasy, ale tak się generalnie nie robi
         # dodawanie atrybutu do klasy
         setattr(cls, "my_magic", lambda self, value: value * 2)  # tak się robi :)
-        setattr(cls, "learn", learn)  # i ta się robi :)
+        setattr(cls, "learn", learn)  # i tak się robi :)
         print("__new__")
 
         return self  # to dostanie __init__!!
