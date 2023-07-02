@@ -84,15 +84,15 @@ class Event(EventAbc):
         return f'{type(self).__name__}({attrs})'
 
 
-event_1 = Event('2023-07-05, 13:00', 'My meeting', 60, ['Myself', 'Janek'])
-# print(vars(event_1))
-# print(repr(event_1))
-print(event_1)
-print(event_1.start_date)
-event_1.start_date = "2023-08-12, 12:00"
-print(event_1.start_date)
-print(event_1.get_remaining_time())
-print(Event.greeting("saek"))
+# event_1 = Event('2023-07-05, 13:00', 'My meeting', 60, ['Myself', 'Janek'])
+# # print(vars(event_1))
+# # print(repr(event_1))
+# print(event_1)
+# print(event_1.start_date)
+# event_1.start_date = "2023-08-12, 12:00"
+# print(event_1.start_date)
+# print(event_1.get_remaining_time())
+# print(Event.greeting("saek"))
 
 # default_event = Event.create_default_event()
 # print(default_event)

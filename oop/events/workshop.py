@@ -20,6 +20,6 @@ class Workshop(Event):
 
 workshop_1 = Workshop(start_date="2023-07-10, 10:00", title="Interesting workshop", duration=120,
                       participants=["Tomek", "Basia"], speaker="Znany profesor")
-print(repr(workshop_1))
-workshop_1.title = "New title"
-print(workshop_1)
+# print(repr(workshop_1))
+# workshop_1.title = "New title"
+# print(workshop_1)
