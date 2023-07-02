@@ -16,8 +16,7 @@ class Event(EventAbc):
 
     @staticmethod
     def greeting(name):
-
-        return f"Hello {name}! This is your event planner. "
+        return f"Hello {name}! This is your event planner. Have a productive day!"
 
     @property
     def start_date(self):
@@ -25,10 +24,14 @@ class Event(EventAbc):
 
     @start_date.setter
     def start_date(self, value):
+        new_date = None
         try:
-            self._start_date = datetime.strptime(value, "%Y-%m-%d, %H:%M")
+            new_date = datetime.strptime(value, "%Y-%m-%d, %H:%M")
         except ValueError:
             print("Cannot set new starting date. Please provide new date in the following format: YYYY-MM-DD, hh:mm")
+        if new_date < datetime.today():
+            raise ValueError("New starting date cannot be earlier than today.")
+        self._start_date = new_date
 
     @property
     def duration(self):
@@ -46,7 +49,7 @@ class Event(EventAbc):
 
     @title.setter
     def title(self, value):
-        self._participants = value
+        self._title = value
 
     @title.deleter
     def title(self):
@@ -72,7 +75,8 @@ class Event(EventAbc):
         event_participants = None
         if self._participants is not None:
             event_participants = ", ".join(self._participants)
-        return f'{self._title} planned on {self._start_date} with {event_participants}. Estimated time: {self._duration} minutes.'
+        return f'{self._title} planned on {self._start_date} with {event_participants}. ' \
+               f'Estimated time: {self._duration} minutes.'
 
     def __repr__(self):
         attrs = ', '.join(
@@ -85,9 +89,10 @@ event_1 = Event('2023-07-05, 13:00', 'My meeting', 60, ['Myself', 'Janek'])
 # print(repr(event_1))
 print(event_1)
 print(event_1.start_date)
-# event_1.start_date = "2020-08-12"
-# print(event_1.start_date)
+event_1.start_date = "2023-08-12, 12:00"
+print(event_1.start_date)
 print(event_1.get_remaining_time())
+print(Event.greeting("saek"))
 
 # default_event = Event.create_default_event()
 # print(default_event)
