@@ -172,7 +172,7 @@ ALTER TABLE employees
 
 
 ALTER TABLE table_name RENAME TO staff;  # zmieni nazwę tabeli
-```
+``` 
 
 ---
 
@@ -199,3 +199,29 @@ GRANT ALL ON table_name TO user_name; # daje wszystkie uprawnienia
 Bonusy: 
 - Natural Join (połączenie na podstawie kolumn o tych samych nazwach), 
 - Theta Join (łączenie na podstawie dowolnego warunku logicznego).
+
+
+---
+
+## Procedural SQL
+
+- pozwala na programowanie w SQL
+
+
+
+### Views (widoki)
+
+- tworzymy tabelę i określamy warunki dostępu dla poszczególnych użytkowników
+- można łączyć tabele
+- upraszczają zapytania
+
+
+
+Procedury a funkcje:
+- funkcje nie mogą modyfikować danych, musi mieć return, trzeba podać typ danych do return
+- procedury mogą modyfikować (mają pełny DML), ale bez wywołania wyniku (returna)
+
+
+Trigger a event:
+- trigger jest powodowany zmianą danych
+- event jest powodowany czasem
