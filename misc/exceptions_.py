@@ -63,9 +63,7 @@ def lookups():
 
 # lookups()
 
-
 # exception payloads PEP 352
-
 
 def median(iterable):
     items = sorted(iterable)
