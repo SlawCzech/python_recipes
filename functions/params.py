@@ -23,9 +23,9 @@ def magic(a, b, /, c, d, *, e, f):
     pass
 
 
-# przed slashem tylko pozycyjne, po gwiazdce tylko nazwane!! między nimi pozycyjne lub nazwane.
+# Przed slashem tylko pozycyjne, po gwiazdce tylko nazwane!! między nimi pozycyjne lub nazwane.
 # w pythonie głównie używa się go zagwarantowania tego samego API dla funkcjonalności z innych języków (C++)
-# przykład z pythona - range
+# przykład z pythona: range.
 
 
 # parametry defaultowe
