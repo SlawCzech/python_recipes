@@ -35,6 +35,7 @@ print(z_deep == x, z_deep is x)  # True False
 arr = [1, 2, 3]
 value = 42
 
+
 def magic(col, val):
     col.append(val)
     val += 10
@@ -44,6 +45,20 @@ def magic(col, val):
 magic(arr, value)
 print(arr, value)
 
+
 # [1, 2, 3, 42] 52 wykonanie funkcji zmieni wartości arr i val
 # [1, 2, 3, 42] 42 poza funkcją arr jest zmienione (bo referencje), ale value nie (bo inny scope)
 
+def magic2(col):
+    col.append(value)
+    value = value + 10
+    print(col, value2)
+
+magic2(arr)
+print(arr, value)
+
+# right hand side assignment, gdy po prawej stronie jest zmienna, to szuka jej w scopach LEGB
+# left hand side assignment to zapis, szuka value w scope funkcji, ale nie widzi, więc tworzy zmienną i chce do siebie
+# dopisać 10, ale nie może bo nie wie ile sam wynosi, więc jest błąd. Próbuje użyć zmiennej, którą dopiero tworzy!
+# wpis "global value" na początku funkcji też rozwiązuje sprawę
+# LHS to zapis, RHS to odczyt!!!
