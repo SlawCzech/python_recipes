@@ -62,3 +62,17 @@ print(arr, value)
 # dopisać 10, ale nie może bo nie wie ile sam wynosi, więc jest błąd. Próbuje użyć zmiennej, którą dopiero tworzy!
 # wpis "global value" na początku funkcji też rozwiązuje sprawę
 # LHS to zapis, RHS to odczyt!!!
+
+
+
+def add(a, b):
+    return a + b
+
+add.magic = 42
+# funkcja jako obiekt
+
+add.add = add
+
+x = add.add.add.add.add.add.add.add(3, 4)
+print(x)
+# to jest ciągła rekurencja aż do momentu jak trafi na wywołanie
