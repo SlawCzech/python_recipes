@@ -19,14 +19,15 @@
 
 # is_palindrome
 
-def is_palindrome(text):
-    return True if text == text[::-1] else False
+# def is_palindrome(text):
+#     return True if text == text[::-1] else False
+#
+#
+# print(is_palindrome('kajak'))
+# print(is_palindrome('kajako'))
+#
+# x = lambda text: True if text == text[::-1] else False
+#
+# print(x('kayak'))
+# print(x('kayako'))
 
-
-print(is_palindrome('kajak'))
-print(is_palindrome('kajako'))
-
-x = lambda text: True if text == text[::-1] else False
-
-print(x('kayak'))
-print(x('kayako'))
