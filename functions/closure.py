@@ -67,11 +67,30 @@ def uuid_():
 
 gen_uuid = uuid_()
 
+
 # print(vars(gen_uuid))
 # print(gen_uuid())
 # print(vars(gen_uuid))
 # print(gen_uuid())
 
+
+# memoizing - zapamiętywanie wyniku funkcji, aby następnym razem zwrócić bez kalkulacji
+
+def memoize_add():
+    def inner(a, b):
+        key = f'{a} {b}'
+        if key not in inner.cache:
+            print('not from cache')
+            inner.cache[key] = a + b
+        return inner.cache[key]
+
+    inner.cache = {}
+
+    return inner
+
+
+add = memoize_add()
+print(add(1, 2))
 
 # Funkcja debounce — jeżeli użytkownik nie wykona requestu w ciągu 300 milisekund, to funkcja się nie wykona,
 # jeśli powyżej 300 ms to, request się w ogóle nie wykona
