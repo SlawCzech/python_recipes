@@ -23,5 +23,109 @@ def bye(name, surname):
     return f'{name} {surname}'
 
 
-print(hello('Mateusz'))
-print(bye('Mateusz', "M."))
+# print(hello('Mateusz'))
+# print(bye('Mateusz', "M."))
+
+
+def change_letters(fn):
+    def inner(name):
+        return fn(name.title())
+
+    return inner
+
+
+def reverse_name(fn):
+    def inner(name):
+        return fn(name[::-1])
+
+    return inner
+
+
+def upper(fn):
+    def inner(name):
+        return fn(name).title()
+
+    return inner
+
+
+def html(fn):
+    def inner(name):
+        hej, name = fn(name).split()
+
+        return f'<p>{hej}<h2> {name} </h2></p> '
+
+    return inner
+
+
+@change_letters
+@reverse_name
+def sentence(name):
+    return f'Hello {name}.'
+
+
+# print(sentence('janusz'))
+
+
+@html
+@upper
+def message(name):
+    return f'hello {name}'
+
+
+@html
+@upper
+def bye_message(name):
+    return f'Bye {name}'
+
+
+#
+# print(message('janusz'))
+# print(bye_message('janusz'))
+
+import webbrowser
+
+
+def html_template(filename):
+    def wrapper(fn):
+        def inner(name):
+            return fn(name)
+
+        return inner
+
+    return wrapper
+
+
+def tag(hdl, **kwargs):
+    def wrapper(fn):
+        def inner(name):
+            greeting, name = fn(name).title().split(' ')
+            attributes = ' '.join([f'{attr}="{value}"' for attr, value in kwargs.items()])
+            tag_with_attrs = f'<{hdl} {attributes}>{name}</{hdl}>'
+            with open('index.html', 'w') as f:
+                f.write(f'<p>{greeting} {tag_with_attrs}</p>')
+            return webbrowser.open('index.html')
+
+        return inner
+
+    return wrapper
+
+
+@html_template("index.html")
+@tag("h2", style="red")
+def message(name):
+    return f'hello {name}'
+
+
+@html_template("index.html")
+@tag("h3", className="elo")
+def bye_message(name):
+    return f'bye {name}'
+
+
+# napisz generator html -> <p>Hello <h2 class="name" style="color: red;">Janusz</h2></p>
+# napisz dekorator, który w momencie wywołania funkcji message wstawi zwrócony html na stronę internetową
+print(message('Janusz'))
+# print(bye_message('Janusz'))
+
+
+# napisz dekorator, który automatycznie będzie memoizował funkcję. jak skończysz sprawdź czym jest lru_cache.
