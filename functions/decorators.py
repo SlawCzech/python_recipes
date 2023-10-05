@@ -124,8 +124,43 @@ def bye_message(name):
 
 # napisz generator html -> <p>Hello <h2 class="name" style="color: red;">Janusz</h2></p>
 # napisz dekorator, który w momencie wywołania funkcji message wstawi zwrócony html na stronę internetową
-print(message('Janusz'))
-# print(bye_message('Janusz'))
+# print(message('Janusz'))
 
+
+# print(bye_message('Janusz'))
+from datetime import time
 
 # napisz dekorator, który automatycznie będzie memoizował funkcję. jak skończysz sprawdź czym jest lru_cache.
+import time
+
+
+def memo(fn):
+    _cache = {}
+
+    def inner(*args, **kwargs):
+        key = " ".join(str(char) for char in args) + " ".join(f'{k, v}' for k, v in kwargs.items())
+        if key not in _cache:
+            _cache[key] = fn(*args, **kwargs)
+        return _cache[key]
+
+    return inner
+
+
+@memo
+def magic(a, b):
+    time.sleep(5)
+    print('już to mam')
+    return a + b
+
+
+@memo
+def multiply(a, b):
+    time.sleep(5)
+    print('już już')
+    return a * b
+
+
+magic(1, 2)
+magic(2, 1)
+magic(1, 2)
+multiply(1, 2)
