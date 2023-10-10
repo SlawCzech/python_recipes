@@ -39,3 +39,40 @@ def my_reduce(cb, collection, start=None):
 
 print(my_reduce(lambda acc, ce: acc + ce, [1, 2, 3, 4], 0))
 
+x = [[1, 2, 3], [2, 3, 5], [4, 2, 1, 10]]
+
+# intersection
+from functools import reduce
+
+print(reduce(lambda acc, ce: acc & {*ce}, x[1:], {*x[0]}))
+# print(reduce(lambda acc, ce: {*acc} & {*ce}, x)) # mniej wydajne!
+
+
+# symmetrical difference
+print(reduce(lambda acc, ce: acc ^ {*ce}, x[1:], {*x[0]}))
+
+# union |
+print(reduce(lambda acc, ce: acc | {*ce}, x[1:], {*x[0]}))
+
+# różnica -
+print(reduce(lambda acc, ce: acc - {*ce}, x[1:], {*x[0]}))
+
+
+def reverse(text):
+    return text[::-1]
+
+
+def upper(text):
+    return text.title()
+
+
+def remove_vowels(text):
+    vowels = 'aeiou'
+    return ''.join(letter for letter in text if letter.lower() not in vowels)
+
+
+sentence = 'Jarosław zniszczył wieniec pod pomnikiem smoleńskim dzisiaj.'
+
+pipeline = [reverse, upper, remove_vowels]
+
+print(reduce(lambda acc, ce: ce(acc), pipeline, sentence))
