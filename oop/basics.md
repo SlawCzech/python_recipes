@@ -42,7 +42,7 @@ Access modifiers:
 4. Metoda - funkcja w kontekście klasy (bo to klasy trzymają metody!)
    - metody z self - służą do manipulowania obiektem
    - @staticmethod - rodzaj metody statycznej, nie potrzebują obiektu, żeby dało się je wywołać; nie mają selfa więc nie mogą manipulować obiektem ani klasą, każda mogłaby być zewnętrzną funkcją, ale skoro logicznie pasuje, to OK
-   - @classmethod - rodzaj metody statycznej; przyjmują obiekt klasy (cls), służy do interakcji z klasą (np. jako custom constructor), np. `__new__` to jest de facto class method
+   - @classmethod - rodzaj metody statycznej; przyjmują obiekt klasy (cls), służy do interakcji z klasą (np. jako custom constructor), np. `__new__` , `__call__` to jest de facto class method
 5. Konstruktor - metoda tworząca obiekt `__new__`
    - uwaga - `__init__` przyjmuje jako pierwszy obiekt self, który musiał zostać wcześniej stworzony
    - tylko metoda `__new__` klasy object może de facto utworzyć obiekt 
