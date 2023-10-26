@@ -1,3 +1,5 @@
+from collections.abc import Container, Sized, Iterable, Sequence, Hashable, Set
+
 import pytest
 from .sorted_frozen_set import SortedFrozenSet
 
@@ -45,6 +47,10 @@ def test_negative_not_contained(s):
     assert not (7 not in s)
 
 
+def test_container_protocol():
+    assert issubclass(SortedFrozenSet, Container)
+
+
 # sized protocol - number of items; len(sized); `__len__`
 # nie może zuzywać ani modyfikować kolekcji
 
@@ -72,6 +78,10 @@ def test_ten():
 def test_with_duplicates():
     s = SortedFrozenSet([5, 5, 5])
     assert len(s) == 1
+
+
+def test_sized_protocol():
+    assert issubclass(SortedFrozenSet, Sized)
 
 
 # Iterable protocol
@@ -102,6 +112,10 @@ def test_for_loop(s1):
     for item in s1:
         assert item == expected[index]
         index += 1
+
+
+def test_iterable_protocol():
+    assert issubclass(SortedFrozenSet, Iterable)
 
 
 # Sequence protocol  (indeksowanie lub slicing, index(val), count(val))
@@ -166,6 +180,10 @@ def test_slice_full(s2):
     assert s2[:] == s2
 
 
+def test_sequence_protocol():
+    assert issubclass(SortedFrozenSet, Sequence)
+
+
 # Repr protocol
 # `__repr__` -> str
 
@@ -228,3 +246,168 @@ def test_identical_unequal():
 def test_equal_sets_have_the_same_hash_code():
     assert hash(SortedFrozenSet([5, 2, 1, 4])) == hash(SortedFrozenSet([5, 2, 1, 4]))
 
+
+def test_hashable_protocol():
+    assert issubclass(SortedFrozenSet, Hashable)
+
+
+## Set functionalities
+
+def test_lt_positive():
+    s = SortedFrozenSet({1, 2})
+    t = SortedFrozenSet({1, 2, 3})
+    assert s < t
+
+
+def test_lt_negative():
+    s = SortedFrozenSet({1, 2, 3})
+    t = SortedFrozenSet({1, 2, 3})
+    assert not s < t
+
+
+def test_le_lt_negative():
+    s = SortedFrozenSet({1, 2})
+    t = SortedFrozenSet({1, 2, 3})
+    assert s <= t
+
+
+def test_le_eq_negative():
+    s = SortedFrozenSet({1, 2, 3})
+    t = SortedFrozenSet({1, 2, 3})
+    assert s <= t
+
+
+def test_le_negative():
+    s = SortedFrozenSet({1, 2, 3})
+    t = SortedFrozenSet({1, 2})
+    assert not s <= t
+
+
+def test_gt_positive():
+    s = SortedFrozenSet({1, 2, 3})
+    t = SortedFrozenSet({1, 2})
+    assert s > t
+
+
+def test_gt_negative():
+    s = SortedFrozenSet({1, 2, 3})
+    t = SortedFrozenSet({1, 2, 3})
+    assert not s > t
+
+
+def test_ge_gt_negative():
+    s = SortedFrozenSet({1, 2, 3})
+    t = SortedFrozenSet({1, 2})
+    assert s >= t
+
+
+def test_ge_eq_negative():
+    s = SortedFrozenSet({1, 2, 3})
+    t = SortedFrozenSet({1, 2, 3})
+    assert s >= t
+
+
+def test_ge_negative():
+    s = SortedFrozenSet({1, 2})
+    t = SortedFrozenSet({1, 2, 3})
+    assert not s >= t
+
+
+def test_issubset_eq_positive():
+    s = SortedFrozenSet({1, 2, 3})
+    t = [1, 2, 3]
+    assert s.issubset(t)
+
+
+def test_issubset_eq_positive():
+    s = SortedFrozenSet({1, 2})
+    t = [1, 2, 3]
+    assert s.issubset(t)
+
+
+def test_issubset_negative():
+    s = SortedFrozenSet({1, 2, 3})
+    t = [1, 2]
+    assert not s.issubset(t)
+
+
+def test_issuperset_eq_positive():
+    s = SortedFrozenSet({1, 2, 3})
+    t = [1, 2]
+    assert s.issuperset(t)
+
+
+def test_issuperset_gt_positive():
+    s = SortedFrozenSet({1, 2, 3})
+    t = [1, 2, 3]
+    assert s.issuperset(t)
+
+
+def test_issuperset_negative():
+    s = SortedFrozenSet({1, 2})
+    t = [1, 2, 3]
+    assert not s.issuperset(t)
+
+
+def test_isdisjoint_positive():
+    s = SortedFrozenSet([1, 2, 3])
+    t = [4, 5, 6]
+    assert s.isdisjoint(t)
+
+
+def test_isdisjoint_negative():
+    s = SortedFrozenSet([1, 2, 3])
+    t = [3, 5, 6]
+    assert not s.isdisjoint(t)
+
+
+def test_intersection_method():
+    s = SortedFrozenSet([1, 2, 3])
+    t = [2, 3, 4]
+    assert s.intersection(t) == SortedFrozenSet({2, 3})
+
+
+def test_intersection_operator():
+    s = SortedFrozenSet([1, 2, 3])
+    t = SortedFrozenSet([2, 3, 4])
+    assert s & t == SortedFrozenSet({2, 3})
+
+
+def test_union_method():
+    s = SortedFrozenSet([1, 2, 3])
+    t = SortedFrozenSet([2, 3, 4])
+    assert s.union(t) == SortedFrozenSet([1, 2, 3, 4])
+
+
+def test_union_operator():
+    s = SortedFrozenSet([1, 2, 3])
+    t = SortedFrozenSet([2, 3, 4])
+    assert s | t == SortedFrozenSet([1, 2, 3, 4])
+
+
+def test_symmetric_difference_method():
+    s = SortedFrozenSet([1, 2, 3])
+    t = SortedFrozenSet([2, 3, 4])
+    assert s.symmetric_difference(t) == SortedFrozenSet([1, 4])
+
+
+def test_symmetric_difference_operator():
+    s = SortedFrozenSet([1, 2, 3])
+    t = SortedFrozenSet([2, 3, 4])
+    assert s ^ t == SortedFrozenSet([1, 4])
+
+
+def test_difference_method():
+    s = SortedFrozenSet([1, 2, 3])
+    t = SortedFrozenSet([2, 3, 4])
+    assert s.symmetric_difference(t) == SortedFrozenSet([1, 4])
+
+
+def test_difference_operator():
+    s = SortedFrozenSet([1, 2, 3])
+    t = SortedFrozenSet([2, 3, 4])
+    assert s - t == SortedFrozenSet([1])
+
+
+def test_set_protocol():
+    assert issubclass(SortedFrozenSet, Set)
